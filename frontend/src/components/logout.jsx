@@ -1,7 +1,11 @@
-const Logout = ({ setUserName, setContactName }) => {
+import { useChat } from "../hooks/useProvider";
+
+const Logout = () => {
+   const setUserName = useChat().setUserName
+   const setContactName = useChat().setContactName
    const handleClick = () => {
-      setUserName(false)
-      setContactName(false)
+     setUserName(false)
+     setContactName(false)
    }
 
    return (

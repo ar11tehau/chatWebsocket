@@ -6,42 +6,33 @@ import Message from "./message";
 import Logout from "./logout"
 import Header from "./header"
 import Footer from "./footer"
-import { messages } from "./messages";
+import { useChat } from "../hooks/useProvider";
 
-import { useState } from "react";
+const Talk = () => {
+   const listMessage = useChat().listMessage
+   const userName = useChat().userName
+   const contactName = useChat().contactName
 
-
-
-const Talk = ( { setUserName, setContactName, contactName, contactImgUrl, sendMsg } ) => {
-   const [listMessage, setlistMessage] = useState(messages);
-
-   const sendMessage = (newMessageText) => {
-      const newMessage = {
-         id: listMessage.length + 1,
-         message: newMessageText,
-         isSent: true,
-      }
-      setlistMessage([...listMessage, newMessage]);
-      sendMsg(newMessageText)
-   
-   };
-
-   return (
-      <>
-         <Header>
-            <SenderInfo contactImgUrl={ contactImgUrl } contactName={ contactName } />
-            <Logout setUserName={ setUserName } setContactName={ setContactName } />
-         </Header>
-         <MessageList>
-            {listMessage.map((mymessage, id) => (
-               <Message key={id} message={mymessage} />
-            ))}
-         </MessageList>
-         <Footer>
-            <Input sendText={sendMessage}  placeHolder="Message" />
-         </Footer>
-      </>
-   );
+   if (userName && contactName){
+      return (
+         <>
+            <Header>
+               <SenderInfo />
+               <Logout />
+            </Header>
+            <MessageList>
+               {listMessage.map((mymessage, id) => (
+                  <Message key={id} message={mymessage} />
+               ))}
+            </MessageList>
+            <Footer>
+               <Input />
+            </Footer>
+         </>
+      );
+   } else {
+      return (null)
+   }
 }
 
 
