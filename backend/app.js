@@ -15,7 +15,7 @@ const prisma = new PrismaClient();
 // Create a WebSocket server
 const io = new Server(server, {
    cors: {
-      origin: "http://localhost:5173",
+      origin: "https://chat.domelier.fr/chat",
       methods: ["GET", "POST"],
       credentials: true,
    },
