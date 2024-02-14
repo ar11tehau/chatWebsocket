@@ -16,10 +16,14 @@ const prisma = new PrismaClient();
 const io = new Server(server, {
    cors: {
       origin: "https://chat.domelier.fr/",
+      // origin: 'http://localhost:5173',
       methods: ["GET", "POST"],
       credentials: true,
    },
 });
+
+
+
 
 const createNewUser = async (username) => {
    try {
@@ -92,11 +96,19 @@ const getMessages = async (senderId, receiverId) => {
       const messages = await prisma.message.findMany({
          where: {
             OR: [
-               { senderId: senderId },
-               { receiverId: receiverId },
-               { senderId: receiverId },
-               { receiverId: senderId },
-            ],
+               {
+                  AND: [
+                     { senderId: senderId },
+                     { receiverId: receiverId },
+                  ]
+               },
+               {
+                  AND: [
+                     { senderId: receiverId },
+                     { receiverId: senderId },
+                  ]
+               }
+            ]
          },
          orderBy: {
             timestamp: "asc", // Order messages by timestamp in ascending order
