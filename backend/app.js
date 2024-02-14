@@ -156,9 +156,10 @@ io.on("connection", (socket) => {
    });
 
    // Handle logout
-   socket.on("logout", () => {
+   socket.on("logout", async () => {
       const username = connectedUsers.delete(socket.id);
       connectedUsers.delete(socket.id);
+      const users = (await getUsers()).map((userDb) => userDb.username);
       io.emit("connected", [[...connectedUsers.values()], users]);
       console.log(username, "is disconnected");
       console.log("connectedUsers :", connectedUsers.values());
