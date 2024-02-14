@@ -167,10 +167,11 @@ io.on("connection", (socket) => {
    });
 
    // Handle disconnection
-   socket.on("disconnect", () => {
+   socket.on("disconnect", async () => {
       // Get the username associated with the socket ID
       const username = connectedUsers.delete(socket.id);
       connectedUsers.delete(socket.id);
+      const users = (await getUsers()).map((userDb) => userDb.username);
       io.emit("connected", [[...connectedUsers.values()], users]);
       console.log(username, "is disconnected");
       console.log("connectedUsers :", connectedUsers.values());
