@@ -1,5 +1,4 @@
 import { createContext, useContext, useState } from "react";
-import { messages } from "../components/messages";
 import socket from "/src/socket"
 
 const ChatContext = createContext();
@@ -15,7 +14,7 @@ export const ChatProvider = ({ children }) => {
    const [disconnectedUsers, setDisconnectedUsers] = useState([]);
 
    const [contactImgUrl, setContactImg] = useState("/src/assets/Arii.jpeg");
-   const [listMessage, setlistMessage] = useState(messages);
+   const [listMessage, setlistMessage] = useState([]);
 
    const capitalize = (str) => {
       if (typeof str !== 'string' || str.length === 0) {
