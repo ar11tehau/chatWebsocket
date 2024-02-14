@@ -108,7 +108,13 @@ const getMessages = async (senderId, receiverId) => {
       return false;
    }
 };
-const users = (await getUsers()).map((userDb) => userDb.username);
+
+function capitalize(str) {
+   if (typeof str !== 'string' || str.length === 0) {
+     return str;
+   }
+   return str.charAt(0).toUpperCase() + str.slice(1);
+ }
 
 const connectedUsers = new Map();
 
@@ -116,13 +122,15 @@ const connectedUsers = new Map();
 io.on("connection", (socket) => {
    console.log("User connected");
    // Handle messages from clients
-   socket.on("userConnection", async (user) => {
+   socket.on("userConnection", async (userClient) => {
       try {
+         const user = capitalize(userClient)
          console.log(user, "is connected");
          connectedUsers.set(socket.id, user);
          if (!(await isUser(user))) {
             createNewUser(user);
          }
+         const users = (await getUsers()).map((userDb) => userDb.username);
          io.emit("connected", [[...connectedUsers.values()], users]);
       } catch (error) {
          connectedUsers.delete(socket.id);

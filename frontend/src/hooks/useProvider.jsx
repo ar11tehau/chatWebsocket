@@ -17,6 +17,12 @@ export const ChatProvider = ({ children }) => {
    const [contactImgUrl, setContactImg] = useState("/src/assets/Arii.jpeg");
    const [listMessage, setlistMessage] = useState(messages);
 
+   const capitalize = (str) => {
+      if (typeof str !== 'string' || str.length === 0) {
+        return str;
+      }
+      return str.charAt(0).toUpperCase() + str.slice(1);
+    }
    
 
    const getConnectedUsers = () => {
@@ -91,6 +97,7 @@ export const ChatProvider = ({ children }) => {
             getConnectedUsers,
             getUserDb,
             getMessages,
+            capitalize,
          }}
       >
          {children}

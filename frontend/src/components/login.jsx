@@ -13,11 +13,12 @@ const Login = () => {
    const setUserName = useChat().setUserName
    const userName = useChat().userName
    const connectUser = useChat().connectUser
+   const capitalize = useChat().capitalize
 
    const sendUserName = (userName) => { 
       if ( containsOnlyLetters(userName) ) {
          setShowWarning(false)
-         setUserName(userName)
+         setUserName(capitalize(userName))
          connectUser(userName)
       }
       else {
