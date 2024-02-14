@@ -3,9 +3,12 @@ import { useChat } from "../hooks/useProvider";
 const Logout = () => {
    const setUserName = useChat().setUserName
    const setContactName = useChat().setContactName
+   const disconnectUser = useChat().disconnectUser
+
    const handleClick = () => {
      setUserName(false)
      setContactName(false)
+     disconnectUser()
    }
 
    return (

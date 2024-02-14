@@ -4,6 +4,7 @@ import MessageList from "./messageList";
 import Message from "./message";
 
 import Logout from "./logout"
+import Return from "./return"
 import Header from "./header"
 import Footer from "./footer"
 import { useChat } from "../hooks/useProvider";
@@ -12,13 +13,20 @@ const Talk = () => {
    const listMessage = useChat().listMessage
    const userName = useChat().userName
    const contactName = useChat().contactName
+   const sendMessage = useChat().sendMessage
+   const getUserDb = useChat().getUserDb
+   const getMessages = useChat().getMessages
 
-   if (userName && contactName){
+   if (userName && contactName) {
+      getUserDb(userName, contactName) ? getMessages() : null
       return (
          <>
             <Header>
                <SenderInfo />
-               <Logout />
+               <div className="flex space-x-3">
+                  <Return />
+                  <Logout />
+               </div>
             </Header>
             <MessageList>
                {listMessage.map((mymessage, id) => (
@@ -26,7 +34,7 @@ const Talk = () => {
                ))}
             </MessageList>
             <Footer>
-               <Input />
+               <Input sendText={ sendMessage } placeHolder="Messages" />
             </Footer>
          </>
       );

@@ -1,7 +1,6 @@
-import { useContext, useState } from 'react'
+import { useState } from 'react'
 
 import Input from "./input";
-import Socket from "../socket"
 
 import { useChat } from "../hooks/useProvider";
 
@@ -13,12 +12,13 @@ const Login = () => {
    const [showWarning, setShowWarning] = useState(false)
    const setUserName = useChat().setUserName
    const userName = useChat().userName
+   const connectUser = useChat().connectUser
 
    const sendUserName = (userName) => { 
       if ( containsOnlyLetters(userName) ) {
          setShowWarning(false)
          setUserName(userName)
-         Socket.emit("newuser", userName);
+         connectUser(userName)
       }
       else {
          setShowWarning(true)
@@ -34,9 +34,7 @@ const Login = () => {
       );
    } else {
       return (null)
-   }
-
-   
+   }   
 }
 
 

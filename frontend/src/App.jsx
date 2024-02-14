@@ -1,6 +1,3 @@
-import { useEffect, useRef, useState } from "react";
-import socket from "./socket";
-
 import "./App.css";
 
 import Talk from "./components/talk";

@@ -1,23 +1,34 @@
 import { useChat } from "../hooks/useProvider";
 
 const ContactList = () => {
-   const listContacts = useChat().listContacts
+   const connectedUsers = useChat().connectedUsers
+   const disconnectedUsers = useChat().disconnectedUsers
    const userName = useChat().userName
    const setContactName = useChat().setContactName
    const contactName = useChat().contactName
-
+   const getConnectedUsers = useChat().getConnectedUsers
+   
+   
    const handleClick = (event) => {
       setContactName(event.target.textContent)
    }
+   // const connectedUsersList = connectedUsers
 
-   if (userName && !contactName){
+
+   if (userName && !contactName){ 
+      getConnectedUsers()     
       return (
          <div className="w-full flex flex-col items-center">
-            <p className="p-4">List of contacts</p>
-            { listContacts.map( (contact, id) => (
-               <p className='max-w-md w-full cursor-pointer border  m-1 rounded-md bg-blue-200 border-blue-300' onClick={handleClick} key={ id }>{ contact }</p>
+            <p> { userName } </p>
+            <p className="p-4">Connected</p>
+            { connectedUsers.map( (contact, id) => (
+               <p className='max-w-md w-full cursor-pointer border m-1 rounded-md bg-green-200 border-green-300' onClick={ handleClick } key={ id }>{ contact }</p>
             ) ) }
-         </div>
+            <p className="p-4">Disconnected</p>
+            { disconnectedUsers.map( (contact, id) => (
+               <p className='max-w-md w-full cursor-pointer border m-1 rounded-md bg-red-200 border-red-300' onClick={ handleClick } key={ id }>{ contact }</p>
+            ) ) }
+         </div> 
       );
    } else {
       return (null)
