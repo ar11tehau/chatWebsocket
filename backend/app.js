@@ -15,8 +15,8 @@ const prisma = new PrismaClient();
 // Create a WebSocket server
 const io = new Server(server, {
    cors: {
-      origin: "https://chat.domelier.fr/",
-      // origin: 'http://localhost:5173',
+      // origin: "https://chat.domelier.fr/",
+      origin: 'http://localhost:5173',
       methods: ["GET", "POST"],
       credentials: true,
    },
@@ -111,7 +111,7 @@ const getMessages = async (senderId, receiverId) => {
             ]
          },
          orderBy: {
-            timestamp: "asc", // Order messages by timestamp in ascending order
+            timestamp: "desc", // Order messages by timestamp in ascending order
          },
       });
       return messages;

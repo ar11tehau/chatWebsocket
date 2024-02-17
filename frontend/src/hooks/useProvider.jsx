@@ -14,7 +14,7 @@ export const ChatProvider = ({ children }) => {
    const [disconnectedUsers, setDisconnectedUsers] = useState([]);
 
    const [contactImgUrl, setContactImg] = useState("/src/assets/Arii.jpeg");
-   const [listMessage, setlistMessage] = useState([]);
+   const [listMessage, setListMessage] = useState([]);
 
    const capitalize = (str) => {
       if (typeof str !== 'string' || str.length === 0) {
@@ -54,26 +54,16 @@ export const ChatProvider = ({ children }) => {
       return true
    }
    
-   // socket.on("messages", (response) => {
-   //    const messages = response.map((message) => console.log(message))
-   //    setlistMessage([])
-   // })
-
    const getMessages = () => {
       socket.emit("getmessages", ([senderId, receiverId]))
       socket.on("getmessages", (messages) => {
-         setlistMessage(messages)
+         setListMessage(messages)
       })
    }
 
    const sendMessage = (newMessageText) => {
       socket.emit("newmessage", [newMessageText, senderId, receiverId]);
    };
-
-
-
-   
-
    
 
    return (
@@ -97,6 +87,7 @@ export const ChatProvider = ({ children }) => {
             getUserDb,
             getMessages,
             capitalize,
+            setListMessage,
          }}
       >
          {children}

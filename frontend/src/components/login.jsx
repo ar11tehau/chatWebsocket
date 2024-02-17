@@ -28,7 +28,7 @@ const Login = () => {
 
    if (!userName) {
       return (
-         <div className="h-full w-fit flex flex-col justify-center items-center">
+         <div className="flex flex-col justify-center items-center">
             <Input sendText={ sendUserName } placeHolder="User name"/>
             <p className={`text-red-500 ${showWarning ? "" : "hidden"} `}>Only numbers and letters, no space</p>
          </div>
