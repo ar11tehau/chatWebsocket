@@ -29,7 +29,7 @@ const Talk = () => {
                </div>
             </Header>
             <MessageList>
-               {listMessage.reverse().map((mymessage, id) => (
+               {listMessage.map((mymessage, id) => (
                   <Message key={id} message={mymessage} />
                ))}
             </MessageList>
