@@ -15,8 +15,8 @@ const prisma = new PrismaClient();
 // Create a WebSocket server
 const io = new Server(server, {
    cors: {
-      origin: "https://chat.domelier.fr/",
-      // origin: 'http://localhost:5173',
+      // origin: "https://chat.domelier.fr/",
+      origin: 'http://localhost:5173',
       methods: ["GET", "POST"],
       credentials: true,
    },
@@ -163,6 +163,7 @@ io.on("connection", (socket) => {
    socket.on("getmessages", async ([senderId, receiverId]) => {
       if (senderId && receiverId) {
          const messages = await getMessages(senderId, receiverId);
+         console.log("getmessages", [...messages])
          socket.emit("getmessages", [...messages]);
       }
    });
