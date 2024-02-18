@@ -163,7 +163,6 @@ io.on("connection", (socket) => {
    socket.on("getmessages", async ([senderId, receiverId]) => {
       if (senderId && receiverId) {
          const messages = await getMessages(senderId, receiverId);
-         console.log("getmessages", [...messages])
          socket.emit("getmessages", [...messages]);
       }
    });
